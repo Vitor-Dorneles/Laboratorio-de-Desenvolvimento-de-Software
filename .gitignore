@@ -1,2 +1,24 @@
-/Aulas/Aula-01/Exercícios/ProjetoConta/target/
-/Aulas/Aula-01/Exercícios/FormaGeometrica/target/
+# Java compilado
+*.class
+
+# Maven
+**/target/
+
+# NetBeans com Ant
+**/build/
+**/dist/
+**/nbproject/private/
+
+# IntelliJ IDEA
+**/.idea/
+*.iml
+
+# VS Code local
+**/.vscode/
+
+# Arquivos temporários
+*.log
+*.swp
+*~
+.DS_Store
+Thumbs.db
