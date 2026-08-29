@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package guiaswing;
+package formulario;
 
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.OK_OPTION;

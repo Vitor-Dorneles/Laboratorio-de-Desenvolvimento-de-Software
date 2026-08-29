@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package guiaswing;
+package cadastroaluno;
 
 /**
  *
- * @author laboratorio
+ * @author vitor
  */
-public class GuiaSwing {
+public class CadastroAluno {
 
     /**
      * @param args the command line arguments
