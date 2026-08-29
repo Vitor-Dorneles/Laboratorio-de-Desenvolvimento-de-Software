@@ -4,6 +4,9 @@
  */
 package cadastroaluno;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 /**
  *
  * @author vitor
@@ -12,7 +15,7 @@ public class Aluno {
     private String nome; // deve ser nome completo
     private String dataNascimento; // terei de fazer um split depois
     private String sexo;
-    private  int idMatricula; // provavelmente temos que gerar, num único
+    private  int idMatricula;
     private String curso;
     private String cpf;
     //farei uma classe endereço
@@ -24,6 +27,13 @@ public class Aluno {
             Endereco endereco, String telefone){
         //validações
         validarNome(nome);
+        validarData(dataNascimento);
+        validarSexo(sexo);
+        validarCurso(curso);
+        validarTelefone(telefone);
+        validarMatricula(idMatricula);
+        validarCpf(cpf);
+        validarEndereco(endereco);
         this.nome = nome;
         this.sexo = sexo;
         this.dataNascimento = dataNascimento;
@@ -35,16 +45,57 @@ public class Aluno {
     }
 
     private void validarNome(String nome) {
-        if (nome == null || nome.trim().isEmpty()){
+        if (nome == null || nome.trim().isEmpty()) {
             throw new IllegalArgumentException("Nome vazio");
-        } 
-        if (!nome.trim().contains(" ")){ // verificamos se o nome contém espaço
+        }
+        if (!nome.trim().contains(" ")) { // verificamos se o nome contém espaço
             throw new IllegalArgumentException("Informe o nome completo");
         }
     }
     
+    private void validarData(String dataNascimento) {
+        try {
+            LocalDate.parse(dataNascimento, DateTimeFormatter.ofPattern("dd/MM/yyyy")); // localdate parse interpreta a string como o formato escolhido
+        } catch (DateTimeException e) {
+            throw new IllegalArgumentException("Data de nascimento inválida");
+        }
+    }
+
+    private void validarSexo(String sexo) {
+        if (sexo == null || sexo.trim().isEmpty()) {
+            throw new IllegalArgumentException("Sexo não informado");
+        }
+    }
+
+    private void validarCurso(String curso) {
+        if (curso == null || curso.trim().isEmpty()) {
+            throw new IllegalArgumentException("Curso não informado");
+        }
+    }
+
+    private void validarTelefone(String telefone) {
+        if (telefone == null || telefone.trim().isEmpty()) {
+            throw new IllegalArgumentException("telefone não informado");
+        }
+    }
+
+    private void validarMatricula(int idMatricula) {
+        if (idMatricula <= 0) {
+            throw new IllegalArgumentException("Matrícula deve ser um número positivo.");
+        }
+    }
     
-    
+    private void validarCpf(String cpf) {
+        if (cpf == null || cpf.length() != 11) {
+            throw new IllegalArgumentException("CPF deve conter exatamente 11 dígitos numéricos.");
+        }
+    }
+
+    private void validarEndereco(Endereco endereco) {
+        if (endereco == null) {
+            throw new IllegalArgumentException("Endereço não informado");
+        }        
+    }
     
     public String getNome() {
         return nome;

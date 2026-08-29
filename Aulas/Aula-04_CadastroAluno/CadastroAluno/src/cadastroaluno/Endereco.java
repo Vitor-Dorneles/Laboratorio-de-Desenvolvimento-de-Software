@@ -14,13 +14,13 @@ public class Endereco {
     private String bairro;
     private String cidade;
     private String cep;
-    private char estado; //combo box aqui, não entendi o que seja
+    private String estado; //combo box aqui, não entendi o que seja
     
     
     
     public Endereco(String rua, Integer numero,
                     String bairro, String cidade,
-                    String cep, char estado) {
+                    String cep, String estado) {
         validarRua(rua);
         validarBairro(bairro);
         validarCidade(cidade);
@@ -72,10 +72,6 @@ public class Endereco {
             throw new IllegalArgumentException("Estado vazio.");
         }
     }
-
-
-
-
 
     public String getRua() {
         return rua;
