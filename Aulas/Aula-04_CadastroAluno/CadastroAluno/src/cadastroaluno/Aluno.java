@@ -15,7 +15,8 @@ public class Aluno {
     private String nome; // deve ser nome completo
     private String dataNascimento; // terei de fazer um split depois
     private String sexo;
-    private  int idMatricula;
+    private final int idMatricula;
+    private static int proximaMatricula = 1;
     private String curso;
     private String cpf;
     //farei uma classe endereço
@@ -23,25 +24,32 @@ public class Aluno {
     private String telefone;
     
     public Aluno(String nome, String dataNascimento, String sexo,
-            int idMatricula, String curso, String cpf, 
-            Endereco endereco, String telefone){
+            String curso, String cpf, 
+            Endereco endereco, String telefone) {
         //validações
         validarNome(nome);
         validarData(dataNascimento);
         validarSexo(sexo);
         validarCurso(curso);
         validarTelefone(telefone);
-        validarMatricula(idMatricula);
+        //validarMatricula(idMatricula);
         validarCpf(cpf);
         validarEndereco(endereco);
         this.nome = nome;
         this.sexo = sexo;
         this.dataNascimento = dataNascimento;
         this.curso = curso;
-        this.idMatricula = idMatricula;
+        //this.idMatricula = idMatricula;
+        this.idMatricula = proximaMatricula++; // na implementação cada aluno novo receberá um valor novo automaticamente
         this.cpf = cpf;
         this.endereco = endereco;
         this.telefone = telefone;
+    }
+    
+    @Override
+    public String toString() {
+        return idMatricula + ";" + nome + ";" + dataNascimento + ";" + sexo + ";" +
+                curso + ";" + cpf + ";" + telefone + ";" + endereco;
     }
 
     private void validarNome(String nome) {
@@ -79,11 +87,11 @@ public class Aluno {
         }
     }
 
-    private void validarMatricula(int idMatricula) {
-        if (idMatricula <= 0) {
-            throw new IllegalArgumentException("Matrícula deve ser um número positivo.");
-        }
-    }
+    // private void validarMatricula(int idMatricula) {
+    //     if (idMatricula <= 0) {
+    //         throw new IllegalArgumentException("Matrícula deve ser um número positivo.");
+    //     }
+    // }
     
     private void validarCpf(String cpf) {
         if (cpf == null || cpf.length() != 11) {

@@ -56,3 +56,7 @@ private void validarCep(String cep) {
         }
     }
 ```
+
+## ToString 
+?? ToString :: Método importante para cada classe, que a torna responsável pela sua própria exibição e as outras só tem de chamar o método já concatenado
+

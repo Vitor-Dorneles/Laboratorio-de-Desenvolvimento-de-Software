@@ -20,7 +20,7 @@ public class Endereco {
     
     public Endereco(String rua, Integer numero,
                     String bairro, String cidade,
-                    String cep, String estado) {
+            String cep, String estado) {
         validarRua(rua);
         validarBairro(bairro);
         validarCidade(cidade);
@@ -34,6 +34,11 @@ public class Endereco {
         this.cep = cep;
         this.estado = estado;
 
+    }
+    
+    @Override
+    public String toString() {
+        return rua + ";" + numero + ";" + bairro + ";" + cidade + ";" + cep + ";" + estado;
     }
     
     private void validarRua(String rua) {
