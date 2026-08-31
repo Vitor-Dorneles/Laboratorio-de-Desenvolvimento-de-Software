@@ -21,6 +21,15 @@ O construtor deve validar dados em seu formato, para que a cada chamada de const
 as validações devem ficar antes das atribuições, ex:
 validarNome(String nome);
 this.nome = nome;
+
+um dos construtores finalizados
+```java
+try {
+            Endereco endereco = new Endereco(
+                    txtRua.getText(), numero, txtBairro.getText(),
+                    txtCidade.getText(), txtCep.getText(),
+                    (String) cmbEstado.getSelectedItem());
+```
 ### Validações
 As validaçoes são feitas por campo, para que sirvam no futuro onde o sistema pode mudar e podemos usar em outros sistemas java
 exemplo básico de validação de nome completo, onde validamos se temos um nome e se ele tem espaço

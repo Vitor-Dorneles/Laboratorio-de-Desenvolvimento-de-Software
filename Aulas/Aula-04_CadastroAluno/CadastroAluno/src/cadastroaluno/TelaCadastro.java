@@ -4,6 +4,8 @@
  */
 package cadastroaluno;
 
+import java.io.FileWriter;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -263,7 +265,7 @@ public class TelaCadastro extends javax.swing.JFrame {
             numero = null;
         } else {
             try {
-                numero = Integer.parseInt(textoNumero);
+                numero = Integer.parseInt(textoNumero); //recebe String e devolve número inteiro
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Número do endereço deve ser numérico.", "Erro",
                         JOptionPane.ERROR_MESSAGE);
@@ -283,6 +285,12 @@ public class TelaCadastro extends javax.swing.JFrame {
                     endereco, txtTelefone.getText());
 
             txaAlunos.append(aluno + "\n");
+
+            try (FileWriter escritor = new FileWriter("Alunos.txt", true)){
+                escritor.write(aluno + "\n");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Não foi possível salvar no arquivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
 
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Dados inválidos", JOptionPane.ERROR_MESSAGE);
