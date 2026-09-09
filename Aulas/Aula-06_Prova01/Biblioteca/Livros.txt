@@ -1,0 +1,5 @@
+LIVRINHO;RICARDO;2025;Físico;Tecnologia;Não iniciado
+Livro prova 01;Gremio;2026;Digital;Tecnologia;Em andamento
+teste;eu;2026;Físico;Tecnologia;Em andamento
+Baile no inter;Gremio;2026;Físico;Romance;Concluído
+teste deu bom;garibalid;1250;Físico;Ficção;Não iniciado
