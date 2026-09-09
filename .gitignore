@@ -34,6 +34,7 @@ nbproject/private/
 .vscode/
 
 # Arquivos temporários
+.claude
 *.log
 *.tmp
 *.swp

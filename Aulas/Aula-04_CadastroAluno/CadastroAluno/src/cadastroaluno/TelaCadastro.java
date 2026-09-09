@@ -5,8 +5,10 @@
 package cadastroaluno;
 
 import java.io.FileWriter;
+import java.util.List;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,14 +16,25 @@ import javax.swing.JOptionPane;
  */
 public class TelaCadastro extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaCadastro.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger
+            .getLogger(TelaCadastro.class.getName());
+    
+    private Arquivo arquivo;
+
+    private List<Aluno> lista;
+    private int linhaEdicao = -1;
 
     /**
      * Creates new form TelaCadastro
      */
     public TelaCadastro() {
         initComponents();
+        arquivo = new Arquivo("Alunos");
+        lista = arquivo.leArquivo();
+        Aluno.matriculaUnica(lista);
+        carregarTabela();
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -61,11 +74,11 @@ public class TelaCadastro extends javax.swing.JFrame {
         lblEstado = new javax.swing.JLabel();
         cmbEstado = new javax.swing.JComboBox<>();
         lblCadastro = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txaAlunos = new javax.swing.JTextArea();
         btnSalvar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblAlunos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,10 +120,6 @@ public class TelaCadastro extends javax.swing.JFrame {
 
         lblCadastro.setText("Alunos Cadastrados");
 
-        txaAlunos.setColumns(20);
-        txaAlunos.setRows(5);
-        jScrollPane1.setViewportView(txaAlunos);
-
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(this::btnSalvarActionPerformed);
 
@@ -120,55 +129,23 @@ public class TelaCadastro extends javax.swing.JFrame {
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(this::btnExcluirActionPerformed);
 
+        tblAlunos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Matricula", "Nome", "Data Nascimento", "Sexo", "Curso", "CPF", "Telefone", "Rua", "Número", "Bairro", "Cidade", "Cep", "Estado"
+            }
+        ));
+        jScrollPane2.setViewportView(tblAlunos);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(txtCurso)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCadastro)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCep, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblEstado)
-                            .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lblCidade)
-                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEndereco)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(lblRua, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(77, 77, 77)
-                                .addComponent(lblNumero)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblBairro)))
-                    .addComponent(lblCurso)
-                    .addComponent(lblSexo)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(rdoMasculino)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rdoFeminino)))
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,14 +162,64 @@ public class TelaCadastro extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNome, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                            .addComponent(lblNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblDadosPessoais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtNome))
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNascimento, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtData, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(63, 63, 63))))
+                        .addGap(63, 63, 63))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCurso)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lblCep, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblEstado)
+                                            .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(lblCidade)
+                                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblEndereco)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addComponent(lblRua, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(77, 77, 77)
+                                                .addComponent(lblNumero)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lblBairro)))
+                                    .addComponent(lblCurso)
+                                    .addComponent(lblSexo)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(rdoMasculino)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(rdoFeminino)))
+                                .addGap(0, 717, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblCadastro)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(210, 210, 210)
+                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,7 +241,7 @@ public class TelaCadastro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -248,28 +275,93 @@ public class TelaCadastro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblCadastro)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-         
+        int linha = tblAlunos.getSelectedRow();
+
+        if (linha == -1) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Selecione uma pessoa para editar");
+            return;
+        }
+        linhaEdicao = linha;
+
+        Aluno aluno = lista.get(linha);
+        txtNome.setText(aluno.getNome());
+
+        if (aluno.getSexo().equals("Masculino") ) {
+            rdoMasculino.setSelected(true);
+        } else {
+            rdoFeminino.setSelected(true);
+        }
+        txtData.setText(aluno.getDataNascimento());
+        txtCurso.setText(aluno.getCurso());
+        txtCpf.setText(aluno.getCpf());
+        txtTelefone.setText(aluno.getTelefone());
+        txtRua.setText(aluno.getEndereco().getRua());
+        txtNumero.setText(String.valueOf(aluno.getEndereco().getNumero()));
+        txtBairro.setText(aluno.getEndereco().getBairro());
+        txtCidade.setText(aluno.getEndereco().getCidade());
+        txtCep.setText(aluno.getEndereco().getCep());
+        cmbEstado.setSelectedItem(aluno.getEndereco().getEstado());
     }//GEN-LAST:event_btnEditarActionPerformed
 
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {
+        int linha = tblAlunos.getSelectedRow();
+        if (linha == -1) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Selecione uma pessoa na tabela",
+                    "Atenção",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        int resposta = JOptionPane.showConfirmDialog(
+            null,
+            "Deseja excluir essa pessoa?",
+            "Confirmação",
+            JOptionPane.YES_NO_OPTION
+        );
+
+        if (resposta == JOptionPane.YES_OPTION) {
+            lista.remove(linha);
+
+            arquivo.gravaArquivo();
+
+            DefaultTableModel tabela
+                    = (DefaultTableModel) tblAlunos.getModel();
+            tabela.removeRow(linha);
+
+            System.out.println("Pessoa excluída");
+        }
     }
+    
+    private void carregarTabela() {
+        DefaultTableModel tabela = (DefaultTableModel) tblAlunos.getModel();
+
+        tabela.setRowCount(0);
+
+        for (Aluno aluno : lista) {
+            tabela.addRow(aluno.obterDados());
+        }
+    }
+    
+    
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {
         String sexo;
@@ -301,19 +393,39 @@ public class TelaCadastro extends javax.swing.JFrame {
                     txtRua.getText(), numero, txtBairro.getText(),
                     txtCidade.getText(), txtCep.getText(),
                     (String) cmbEstado.getSelectedItem());
-
-            Aluno aluno = new Aluno(
-                    txtNome.getText(), txtData.getText(), sexo,
-                    txtCurso.getText(), txtCpf.getText(),
-                    endereco, txtTelefone.getText());
-
-            txaAlunos.append(aluno + "\n");
-
-            try (FileWriter escritor = new FileWriter("Alunos.txt", true)){
-                escritor.write(aluno + "\n");
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Não foi possível salvar no arquivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            
+            if (linhaEdicao == -1) {
+                Aluno aluno = new Aluno(
+                        txtNome.getText(), txtData.getText(), sexo,
+                        txtCurso.getText(), txtCpf.getText(),
+                        endereco, txtTelefone.getText());
+                
+                lista.add(aluno);
+            } else {
+                Aluno alunoAntigo = lista.get(linhaEdicao);
+                Aluno aluno = new Aluno(alunoAntigo.getIdMatricula(), txtNome.getText(), txtData.getText(), sexo, txtCurso.getText(), txtCpf.getText(),
+                        endereco, txtTelefone.getText());
+                lista.set(linhaEdicao, aluno);
+                linhaEdicao = -1;
             }
+            arquivo.gravaArquivo();
+            txtNome.setText("");
+            txtData.setText("");
+            txtCpf.setText("");
+            txtTelefone.setText("");
+            txtCurso.setText("");
+            txtRua.setText("");
+            txtNumero.setText("");
+            txtBairro.setText("");
+            txtCidade.setText("");
+            txtCep.setText("");
+            btnGrSexo.clearSelection();
+            cmbEstado.setSelectedIndex(0);
+            carregarTabela();
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Dados salvos com sucesso"
+                );
 
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Dados inválidos", JOptionPane.ERROR_MESSAGE);
@@ -351,7 +463,7 @@ public class TelaCadastro extends javax.swing.JFrame {
     private javax.swing.ButtonGroup btnGrSexo;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cmbEstado;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCadastro;
     private javax.swing.JLabel lblCep;
@@ -369,7 +481,7 @@ public class TelaCadastro extends javax.swing.JFrame {
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JRadioButton rdoFeminino;
     private javax.swing.JRadioButton rdoMasculino;
-    private javax.swing.JTextArea txaAlunos;
+    private javax.swing.JTable tblAlunos;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtCep;
     private javax.swing.JTextField txtCidade;

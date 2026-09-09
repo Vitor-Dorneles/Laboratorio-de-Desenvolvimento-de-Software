@@ -7,6 +7,7 @@ package cadastroaluno;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 /**
  *
  * @author vitor
@@ -45,7 +46,33 @@ public class Aluno {
         this.endereco = endereco;
         this.telefone = telefone;
     }
+
+    public Aluno(int idMatricula, String nome, String dataNascimento, String sexo,
+            String curso, String cpf,
+            Endereco endereco, String telefone) {
+        this.idMatricula = idMatricula;
+        this.nome = nome;
+        this.sexo = sexo;
+        this.dataNascimento = dataNascimento;
+        this.curso = curso;
+        this.cpf = cpf;
+        this.endereco = endereco;
+        this.telefone = telefone;
+    }
     
+    public Object[] obterDados() {
+        return new Object[] { getIdMatricula(), getNome(), getDataNascimento(),     getSexo(), getCurso(), getCpf(), getTelefone(), getEndereco().getRua(), getEndereco().getNumero(), getEndereco().getBairro(), getEndereco().getCidade(), getEndereco().getCep(), getEndereco().getEstado() };
+    }
+
+    public static void matriculaUnica(List<Aluno> lista) {
+        int maior = 0;
+        for (Aluno a : lista) {
+            if (a.idMatricula >= maior) {
+                maior = a.idMatricula;
+            }
+        }
+        proximaMatricula = maior + 1;
+    }
     @Override
     public String toString() {
         return idMatricula + ";" + nome + ";" + dataNascimento + ";" + sexo + ";" +
