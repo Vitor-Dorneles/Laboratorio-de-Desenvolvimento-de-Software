@@ -11,6 +11,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblTitulo = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuArquivo = new javax.swing.JMenu();
         menuSair = new javax.swing.JMenuItem();
@@ -20,7 +21,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         menuCadProduto = new javax.swing.JMenuItem();
         menuAltProduto = new javax.swing.JMenuItem();
         menuListaProdutos = new javax.swing.JMenuItem();
-        lblTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Produtos");
@@ -36,7 +36,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 menuSairActionPerformed(evt);
             }
         });
-
         jMenuArquivo.add(menuSair);
 
         jMenuBar1.add(jMenuArquivo);
@@ -49,7 +48,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 menuCategoriasActionPerformed(evt);
             }
         });
-
         jMenuCategorias.add(menuCategorias);
 
         jMenuBar1.add(jMenuCategorias);
@@ -62,7 +60,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 menuCadProdutoActionPerformed(evt);
             }
         });
-
         jMenuProdutos.add(menuCadProduto);
 
         menuAltProduto.setText("Consultar / Editar / Excluir");
@@ -71,7 +68,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 menuAltProdutoActionPerformed(evt);
             }
         });
-
         jMenuProdutos.add(menuAltProduto);
 
         menuListaProdutos.setText("Listar / Buscar");
@@ -80,7 +76,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 menuListaProdutosActionPerformed(evt);
             }
         });
-
         jMenuProdutos.add(menuListaProdutos);
 
         jMenuBar1.add(jMenuProdutos);
@@ -92,19 +87,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblTitulo)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(108, 108, 108)
+                .addComponent(lblTitulo)
+                .addContainerGap(120, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTitulo))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(67, 67, 67)
+                .addComponent(lblTitulo)
+                .addContainerGap(103, Short.MAX_VALUE))
         );
 
         pack();
