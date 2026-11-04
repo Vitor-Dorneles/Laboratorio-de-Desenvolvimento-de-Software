@@ -1,57 +1,56 @@
 CREATE DATABASE escola;
 
-use escola;
+USE escola;
 
-CREATE TABLE aluno(
-id int auto_increment PRIMARY KEY,
-nome VARCHAR(50) NOT NULL,
-idade int NOT null,
-curso VARCHAR(50) NOT NULL
+CREATE TABLE aluno (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    idade INT NOT NULL,
+    curso VARCHAR(50) NOT NULL
 );
 
 SHOW TABLES;
 DESC aluno;
 
-INSERT INTO aluno(nome, idade, curso)
+INSERT INTO aluno (nome, idade, curso)
 VALUES
-('João' , 20, 'Matemática'),
-('Maria' , 23, 'Biologia'),
-('Pedro' , 25, 'Farmácia'),
-('Ana' , 20, 'História'),
-('Carlos' , 26, 'Ciencia da computacao');
+    ('João', 20, 'Matemática'),
+    ('Maria', 23, 'Biologia'),
+    ('Pedro', 25, 'Farmácia'),
+    ('Ana', 20, 'História'),
+    ('Carlos', 26, 'Ciência da Computação');
 
-CREATE TABLE professor(
-id INT auto_increment primary key,
-nome VARCHAR(50) NOT NULL,
-idade int not null,
-disciplina VARCHAR(50) NOT NULL
+CREATE TABLE professor (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    idade INT NOT NULL,
+    disciplina VARCHAR(50) NOT NULL
 );
 
-INSERT INTO professor(nome, idade, disciplina)
+INSERT INTO professor (nome, idade, disciplina)
 VALUES
-('Embid' , 20, 'Matemática'),
-('Curry' , 20, 'História'),
-('Nilo' , 26, 'Ciencia da computacao');
+    ('Embid', 20, 'Matemática'),
+    ('Curry', 20, 'História'),
+    ('Nilo', 26, 'Ciência da Computação');
 
-CREATE TABLE matricula(
-id int auto_increment primary key,
-id_aluno int,
-id_profesor int,
-data_matricula DATE,
-
-foreign key (id_aluno) references aluno(id),
-foreign key (id_profesor) references professor(id)
+CREATE TABLE matricula (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_aluno INT,
+    id_professor INT,
+    data_matricula DATE,
+    FOREIGN KEY (id_aluno) REFERENCES aluno(id),
+    FOREIGN KEY (id_professor) REFERENCES professor(id)
 );
 
-
-INSERT INTO matricula(id_aluno, id_professor, data_matricula)
+INSERT INTO matricula (id_aluno, id_professor, data_matricula)
 VALUES
-(1, 1, '2026-01-15' ),
-(1, 3, '2025-01-15' ),
-(2, 2, '2026-01-15' ),
-(3, 3, '2026-01-15' );
+    (1, 1, '2026-01-15'),
+    (1, 3, '2025-01-15'),
+    (2, 2, '2026-01-15'),
+    (3, 3, '2026-01-15');
 
-select * from aluno;
+SELECT *
+FROM aluno;
 
-select nome, disciplina    
-from professor;
+SELECT nome, disciplina
+FROM professor;

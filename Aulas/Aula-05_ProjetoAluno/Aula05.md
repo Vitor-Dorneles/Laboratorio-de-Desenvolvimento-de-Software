@@ -4,7 +4,10 @@ Prova semana que vem
 parte prática, permitido usar github
 Cadastro Aluno é fundamental
 colocar objetos em uma lista
+- A lista é um `List<Aluno>` guardado em `Arquivo` (`getListaAlunos()`); a tela mostra ela no `JTable` `tblAlunos`.
 **Preciso colocar leitura de arquivo**, cada vez que o sistema iniciar
+- Feito em `../Aula-04_CadastroAluno/CadastroAluno/src/cadastroaluno/Arquivo.java`: `leArquivo()` lê com `BufferedReader`, `gravaArquivo()` escreve com `FileWriter` (`false` = sobrescreve o arquivo).
+- No construtor de `TelaCadastro`: `lista = arquivo.leArquivo();` e depois `carregarTabela();` — é isso que carrega ao abrir.
 
 ## Atividade 
 •Criar um cadastro de alunos em um sistema
@@ -19,8 +22,11 @@ colocar objetos em uma lista
 •Faça com que a lista seja salva em um arquivo texto.
 
 •Ao abrir o sistema, ele deverá carregar a lista e apresentar na tabela.
+- `carregarTabela()` em `TelaCadastro.java`: limpa o `DefaultTableModel` (`setRowCount(0)`) e adiciona uma linha por aluno (`addRow(aluno.obterDados())`).
 
 •Adicione a exclusão e edição dos elementos já cadastrados
+- Excluir (`btnExcluirActionPerformed`): pega `tblAlunos.getSelectedRow()`, confirma com `showConfirmDialog`, remove da lista, regrava o arquivo e remove a linha da tabela.
+- A Prova 01 (`../Aula-06_Prova01/Biblioteca/`) repetiu esse fluxo com livros: lista, `JTable`, arquivo, editar.
 
 ## Destilado
 

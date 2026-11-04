@@ -12,7 +12,9 @@ Computação ...
 
 ## Resolução
 Primeiro construi a classe aluno com os dados pedidos, fiz todos privados e construi uma classe que será usada para composição em aluno, não é herança
-usaremos assim: public Endereco endereco;
+- Código: `CadastroAluno/src/cadastroaluno/Aluno.java` (dados e validações), `Endereco.java` (a parte composta) e `TelaCadastro.java` (tela).
+- Composição: Aluno "tem um" Endereco (atributo); herança seria Aluno "é um" Endereco (`extends`), o que não faz sentido.
+usaremos assim: private Endereco endereco;
 faremos os construtores para que nada fique mal completado,
 quem for criar um aluno(construtor), deve montar o endereço primeiro, pois meu aluno recebe o endereco completo
 ### construtor
@@ -23,6 +25,8 @@ validarNome(String nome);
 this.nome = nome;
 
 um dos construtores finalizados
+- Esse trecho está no `btnSalvarActionPerformed` de `TelaCadastro.java`: monta o `Endereco` com os campos da tela antes de criar o `Aluno`.
+- O `try` existe porque o construtor lança `IllegalArgumentException` quando uma validação falha; o `catch` mostra a mensagem ao usuário.
 ```java
 try {
             Endereco endereco = new Endereco(

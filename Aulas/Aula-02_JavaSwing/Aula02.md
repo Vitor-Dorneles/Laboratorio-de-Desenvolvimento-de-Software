@@ -18,4 +18,7 @@ As aplicações Swing funcionam em várias plataformas sem a necessidade de rees
 ## Etapa no Netbeans
 Criaremos uma interface simples para um calculadora
 para isso criamos o projeto com Java Ant
-e depois criamos a "interface" com JPanelForm
+e depois criamos a "interface" com JFrame Form
+- Código: `Calculadora/src/calculadora/CalculadoraInterface.java` (`extends javax.swing.JFrame`); `CalculadoraInterface_COMENTADA.java` é a mesma, comentada.
+- Dois cliques no botão criam o evento `actionPerformed`, executado a cada clique; o número sai do campo com `Double.parseDouble(txtNum.getText())`.
+- Padrão de nomes dos componentes: `btn` botão, `lbl` rótulo, `txt` campo de texto, `pnl` painel (o mesmo da Prova 01 e dos projetos de banco).

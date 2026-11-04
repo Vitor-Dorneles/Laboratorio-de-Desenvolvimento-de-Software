@@ -2,6 +2,8 @@ Aulas/.fita-markdown.json
 # Java compilado
 *.class
 *.jar
+# exceção: conector MySQL dos projetos (precisa estar no repositório para rodar em outra máquina)
+!Aulas/**/lib/*.jar
 *.war
 *.ear
 
@@ -28,7 +30,7 @@ build/
 dist/
 nbbuild/
 nbdist/
-nbproject/private/
+**/nbproject/private/
 
 # VS Code
 .vscode/
@@ -41,8 +43,3 @@ nbproject/private/
 *~
 .DS_Store
 Thumbs.db
-/Aulas/Aula-02/Calculadora/nbproject/private/
-/Aulas/Aula-03_jframe/GuiaSwing/nbproject/private/
-/Aulas/Aula-04_CadastroAluno/CadastroAluno/nbproject/private/
-/Aulas/Aula-06_Prova01/Biblioteca/nbproject/private/
-/Aulas/Aula-07_InicioBancoDados/Escola/nbproject/private/

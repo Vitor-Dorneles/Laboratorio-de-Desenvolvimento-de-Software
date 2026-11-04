@@ -1,0 +1,18 @@
+# Um servidor MySQL para os dois projetos (como no laboratório: um MySQL, vários bancos).
+#   bdaula01 -> CadastroPessoas   |   escola -> CadastroEscola
+# Os scripts só rodam no primeiro "docker compose up -d" (volume vazio).
+services:
+  mysql:
+    image: mysql:8.4.11
+    container_name: mysql-aula11
+    environment:
+      MYSQL_ROOT_PASSWORD: laboratorio
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./CadastroPessoas/bdaula01.sql:/docker-entrypoint-initdb.d/01-bdaula01.sql:ro
+      - ./CadastroEscola/escola.sql:/docker-entrypoint-initdb.d/02-escola.sql:ro
+      - dados:/var/lib/mysql
+
+volumes:
+  dados:
